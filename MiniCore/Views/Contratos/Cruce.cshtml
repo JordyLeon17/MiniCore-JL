@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MiniCore.Models.Cruce>
+
+@{
+    ViewData["Title"] = "Cruce";
+}
+
+<h1>Lista de Ventas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Vendedor
+            </th>
+            <th>
+                Cuota Monto
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SumaMontos)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<label >
+    Total: 
+    @{
+        var suma = Model.Sum(c => c.SumaMontos);
+        <p>@suma</p>
+    }
+</label>
+
+<form asp-controller="Contratos" asp-action="Cruce">
+    <p>
+        Desde: <input type="date" name="fechaini" />
+        Hasta: <input type="date" name="fechafin" />
+        <input type="submit" value="Buscar" class="btn btn-sm btn-dark" />
+    </p>
+</form>
+
